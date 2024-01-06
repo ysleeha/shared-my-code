@@ -19,7 +19,6 @@ int max(int **inputMatrix, int **filter, int **maxPoolingMatrix, int stride, int
                     }
                 }
             }
-            
             // Assign the max value to the pooling matrix
             maxPoolingMatrix[i][j] = maxVal; 
         }
@@ -106,6 +105,7 @@ int main(){
     // Input filter size and allocate memory for filter
     printf("Enter filter size: ");
     scanf("%d", &filterSize);
+    
     filterMatrix = (int **)malloc(filterSize * sizeof(int*));
     for(i = 0; i < filterSize; i++){
         filterMatrix[i] = (int *)malloc(filterSize * sizeof(int));
@@ -118,6 +118,7 @@ int main(){
     // Calculate pooling size and validate dimensions
     int poolingSize = (imageSize - filterSize) / stride + 1;
     printf("Pooling size: %d\n", poolingSize);
+    
     if((imageSize - filterSize) % stride != 0){
         printf("Error in dimensions.\n");
         exit(0);
@@ -126,6 +127,7 @@ int main(){
     // Allocate memory for max and average pooling matrices
     maxPoolingMatrix = (int **)malloc(poolingSize * sizeof(int*));
     averagePoolingMatrix = (int **)malloc(poolingSize * sizeof(int*));
+    
     for(i = 0; i < poolingSize; i++){
         maxPoolingMatrix[i] = (int *)malloc(poolingSize * sizeof(int));
         averagePoolingMatrix[i] = (int *)malloc(poolingSize * sizeof(int));
@@ -140,6 +142,7 @@ int main(){
     fprintf(maxOutputFile, "# Created by GIMP version 2.10.14 PNM plug-in\n");
     fprintf(maxOutputFile, "%d %d\n", poolingSize, poolingSize);
     fprintf(maxOutputFile, "%d\n", maxBrightness);
+    
     for(i = 0; i < poolingSize; i++){
         for(j = 0; j < poolingSize; j++){
             fprintf(maxOutputFile, "%d\n", maxPoolingMatrix[i][j]);
@@ -151,6 +154,7 @@ int main(){
     fprintf(aveOutputFile, "# Created by GIMP version 2.10.14 PNM plug-in\n");
     fprintf(aveOutputFile, "%d %d\n", poolingSize, poolingSize);
     fprintf(aveOutputFile, "%d\n", maxBrightness);
+    
     for(i = 0; i < poolingSize; i++){
         for(j = 0; j < poolingSize; j++){
             fprintf(aveOutputFile, "%d\n", averagePoolingMatrix[i][j]);
@@ -161,18 +165,22 @@ int main(){
     fclose(inputFile);
     fclose(maxOutputFile);
     fclose(aveOutputFile);
+    
     for(i = 0; i < imageSize; i++){
         free(inputMatrix[i]);
     }
+    
     free(inputMatrix);
     for(i = 0; i < filterSize; i++){
         free(filterMatrix[i]);
     }
+    
     free(filterMatrix);
     for(i = 0; i < poolingSize; i++){
         free(maxPoolingMatrix[i]);
         free(averagePoolingMatrix[i]);
     }
+    
     free(maxPoolingMatrix);
     free(averagePoolingMatrix);
 
