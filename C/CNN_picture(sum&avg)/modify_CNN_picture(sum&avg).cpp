@@ -35,7 +35,8 @@ int max(int **inputMatrix, int **filter, int **maxPoolingMatrix, int stride, int
 
 // Function to perform average pooling
 int ave(int **inputMatrix, int **filter, int **averagePoolingMatrix, int stride, int poolingSize, int filterSize){
-    int i, j, k, l;
+    
+	int i, j, k, l;
     int sum = 0;
     for(i = 0; i < poolingSize; i++){
         for(j = 0; j < poolingSize; j++){
