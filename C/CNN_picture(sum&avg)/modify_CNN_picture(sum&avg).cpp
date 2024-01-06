@@ -19,6 +19,7 @@ int max(int **inputMatrix, int **filter, int **maxPoolingMatrix, int stride, int
                     }
                 }
             }
+            
             // Assign the max value to the pooling matrix
             maxPoolingMatrix[i][j] = maxVal; 
         }
